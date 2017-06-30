@@ -9,4 +9,4 @@ exports.db_name = 'xxx';
 
 exports.mail_service = 'xxx';
 exports.mail_user = 'xxx';
-exports.mail_passwd = 'xxx';
+exports.mail_passwd = 'xxx111';
