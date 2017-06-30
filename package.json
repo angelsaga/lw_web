@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "express-mongoose": "^0.1.0",
+    "jsonwebtoken": "^7.4.1",
+    "moment": "^2.18.1",
+    "mongoose": "^4.10.2",
+    "nodemailer": "^4.0.1",
+    "seedrandom": "^2.4.3"
+  },
+  "scripts": {
+    "start": "node bin/www"
+  }
+}

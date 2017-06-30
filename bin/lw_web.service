@@ -1,0 +1,13 @@
+[Unit]
+Description=lw_web
+After=mongodb
+
+[Service]
+ExecStart=/usr/bin/npm start
+Restart=always
+RemainAfterExit=yes
+#Environment=NODE_ENV=production
+WorkingDirectory=/root/lw/lw_web/
+
+[Install]
+WantedBy=multi-user.target
