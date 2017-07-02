@@ -5,6 +5,7 @@ let debug = require('debug')('user');
 let seedrandom = require('seedrandom');
 let moment = require('moment');
 let mail = require('./mail');
+let mongoose = require('mongoose');
 
 exports.login = function(req, res) {
 	let username = req.body.username || '';
@@ -152,13 +153,43 @@ exports.sendVerifyCode = function(req, res) {
 			mail.sendmail(user, code)
 			
 		}
+		});
+	}
+	
+	exports.getUserInfo = function(req, res) {
+		let id = req.user.id || '';
 		
-		
-
-	});
-	
-	
-
-	
-}
+		if(! id){
+			return res.sendStatus(404)
+		}
+			
+		db.userModel.aggregate(
+				[
+					{ $match : 
+						{ _id : new mongoose.Types.ObjectId(id) } 
+					},
+					{
+						$project :					
+							{
+							activities_fans_count :
+								{$size : 
+									{"$ifNull" : ["$activities_fans",[]]}
+								},
+							activities_subs_count :
+								{$size : 
+									{"$ifNull" : ["$activities_subs",[]]}
+								},
+							_id : 1
+					}
+				}
+			])
+		    .exec(function (err, result) {
+			if (err) {
+				debug(err);
+				return res.sendStatus(404);
+			}else{
+				return res.json(result);
+			}
+		});	
+	};
 

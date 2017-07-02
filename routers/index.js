@@ -54,12 +54,13 @@ router.post('/user/register', user.register);
 router.post('/user/login', user.login); 
 
 /* sendVerifyCode */
-router.post('/user/sendvcode', user.sendVerifyCode); 
+router.post('/user/sendvcode', user.sendVerifyCode);
+router.get('/user/info', user.getUserInfo); 
 
 /* list activity */
 router.get('/activity/list', activity.list);
 router.get('/activity/detial', activity.getDetial);
-
+router.get('/activity/userfanlist', activity.listFanActivitiesByUser);
 /* modify activity like*/
 router.post('/activity/detiallike', activity.updateDetialLike);
 

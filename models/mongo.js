@@ -31,7 +31,8 @@ let User = new Schema({
     is_admin: { type: Boolean, default: false },
     created: { type: Date, default: Date.now },
     verifycode: { type: Schema.Types.Mixed },
-    activities_fans : [{ type: Schema.Types.ObjectId, ref: 'Activity' }]
+    activities_fans : [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
+    activities_subs : [{ type: Schema.Types.ObjectId, ref: 'Activity' }]
 });
 
 User.pre('save', function(next) {
