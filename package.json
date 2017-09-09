@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./bin/www",
     "grunt": "grunt",
-    "start": "node ./bin/www"
+    "start": "grunt"
   },
   "devDependencies": {
     "@types/bcrypt": "^1.0.0",
