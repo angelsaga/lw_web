@@ -2,14 +2,8 @@
 import { UserModel, ActivityModel } from '../models/mongo';
 import * as mongoose from "mongoose";
 
-let config = require('../bin/config');
-let jwt = require('jsonwebtoken');
+let config = require('../../bin/config');
 let debug = require('debug')('activity');
-let seedrandom = require('seedrandom');
-let moment = require('moment');
-let mail = require('./mail');
-
-
 
 
 export class Activity {

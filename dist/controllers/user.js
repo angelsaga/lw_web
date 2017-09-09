@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../models/mongo");
+const mail_1 = require("./mail");
 const mongoose = require("mongoose");
-let config = require('../bin/config');
-let jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const seedrandom = require("seedrandom");
+const moment = require("moment");
+let config = require('../../bin/config');
 let debug = require('debug')('user');
-let seedrandom = require('seedrandom');
-let moment = require('moment');
-let mail = require('./mail');
 class User {
     constructor() { }
     login(req, res) {
@@ -141,7 +141,7 @@ class User {
                     }
                     return res.json({ mailstatus: 0 });
                 });
-                mail.sendmail(user, code);
+                mail_1.Mail.sendmail(user, code);
             }
         });
     }

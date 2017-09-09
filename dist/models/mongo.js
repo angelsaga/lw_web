@@ -33,7 +33,7 @@ exports.UserSchema = new mongoose.Schema({
     activities_fans: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Activity' }],
     activities_subs: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Activity' }]
 });
-exports.UserSchema.pre('save', (next) => {
+exports.UserSchema.pre('save', function (next) {
     let user = this;
     if (!user.isModified('password'))
         return next();
@@ -42,7 +42,7 @@ exports.UserSchema.pre('save', (next) => {
         next();
     });
 });
-exports.UserSchema.methods.encryptPassword = (password, cb) => {
+exports.UserSchema.methods.encryptPassword = function (password, cb) {
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         if (err)
             return cb(err);
@@ -53,16 +53,16 @@ exports.UserSchema.methods.encryptPassword = (password, cb) => {
         });
     });
 };
-exports.UserSchema.methods.comparePassword = (password, cb) => {
+exports.UserSchema.methods.comparePassword = function (password, cb) {
     bcrypt.compare(password, this.password, (err, isMatch) => {
         if (err)
             return cb(err);
         cb(isMatch);
     });
 };
-exports.UserSchema.methods.verifyCode = (code, cb) => {
-    if (this.verifycode) {
-        if (this.verifycode.verifycode == code) {
+exports.UserSchema.methods.verifyCode = function (code, cb) {
+    if (this['verifycode']) {
+        if (this['verifycode']['verifycode'] == code) {
             cb(1);
         }
         else {

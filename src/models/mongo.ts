@@ -49,7 +49,7 @@ export const UserSchema = new mongoose.Schema({
 	activities_subs: [{ type: Schema.Types.ObjectId, ref: 'Activity' }]
 });
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next){
 	let user = this;
 	if (!user.isModified('password')) return next();
 	UserSchema.methods.encryptPassword(user.password,
@@ -59,7 +59,7 @@ UserSchema.pre('save', (next) => {
 		});
 });
 
-UserSchema.methods.encryptPassword = (password, cb) => {
+UserSchema.methods.encryptPassword = function(password, cb) {
 	bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
 		if (err) return cb(err);
 		bcrypt.hash(password, salt, (err, hash) => {
@@ -70,7 +70,7 @@ UserSchema.methods.encryptPassword = (password, cb) => {
 };
 
 //Password verification
-UserSchema.methods.comparePassword = (password, cb) => {
+UserSchema.methods.comparePassword = function(password, cb) {
 	bcrypt.compare(password, this.password, (err, isMatch) => {
 		if (err) return cb(err);
 		cb(isMatch);
@@ -78,9 +78,9 @@ UserSchema.methods.comparePassword = (password, cb) => {
 };
 
 //Password verification
-UserSchema.methods.verifyCode = (code, cb) => {
-	if (this.verifycode) {
-		if (this.verifycode.verifycode == code) {
+UserSchema.methods.verifyCode = function(code, cb) {
+	if (this['verifycode']) {
+		if (this['verifycode']['verifycode'] == code) {
 			cb(1);
 		} else {
 			cb(2);

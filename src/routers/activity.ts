@@ -5,29 +5,28 @@ import { Activity } from '../controllers/activity';
 
 
 export class ActivityRoute extends BaseRoute {
-  public activity: Activity;
   constructor() {
     super();
   }
 
   public list(req: Request, res: Response, next: NextFunction) {
-    this.activity.list(req, res);
+    new Activity().list(req, res);
   }
 
   public getDetail(req: Request, res: Response, next: NextFunction) {
-    this.activity.getDetail(req, res);
+    new Activity().getDetail(req, res);
   }
 
   public listFanActivitiesByUser(req: Request, res: Response, next: NextFunction) {
-    this.activity.listFanActivitiesByUser(req, res);
+    new Activity().listFanActivitiesByUser(req, res);
   }
 
   public updateDetialLike(req: Request, res: Response, next: NextFunction) {
-    this.activity.updateDetialLike(req, res);
+    new Activity().updateDetialLike(req, res);
   }
 
   public save(req: Request, res: Response, next: NextFunction) {
-    this.activity.save(req, res);
+    new Activity().save(req, res);
   }
 
 }

@@ -2,12 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../models/mongo");
 const mongoose = require("mongoose");
-let config = require('../bin/config');
-let jwt = require('jsonwebtoken');
+let config = require('../../bin/config');
 let debug = require('debug')('activity');
-let seedrandom = require('seedrandom');
-let moment = require('moment');
-let mail = require('./mail');
 class Activity {
     constructor() { }
     list(req, res) {

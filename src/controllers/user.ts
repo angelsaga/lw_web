@@ -1,17 +1,16 @@
 import { UserModel } from '../models/mongo';
+import { Mail } from "./mail";
 import * as mongoose from "mongoose";
+import * as jwt from "jsonwebtoken";
+import * as seedrandom from "seedrandom";
+import * as moment from "moment";
 
-let config = require('../bin/config');
-let jwt = require('jsonwebtoken');
+let config = require('../../bin/config');
 let debug = require('debug')('user');
-let seedrandom = require('seedrandom');
-let moment = require('moment');
-let mail = require('./mail');
 
 
 export class User {
-	constructor() { }
-
+	constructor() { } 
 
 	public login(req, res) {
 		let username = req.body.username || '';
@@ -163,8 +162,7 @@ export class User {
 					}
 					return res.json({ mailstatus: 0 });
 				});
-				mail.sendmail(user, code)
-
+				Mail.sendmail(user, code);
 			}
 		});
 	}

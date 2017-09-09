@@ -6,7 +6,7 @@ var distserver = require("../dist/server");
 var debug = require("debug")("express:server");
 var http = require("http");
 
-var port = normalizePort(process.env.PORT || '8080');
+var port = normalizePort(process.env.PORT || '80');
 var app = distserver.Server.bootstrap().app;
 app.set('port', port);
 
