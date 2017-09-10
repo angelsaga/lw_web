@@ -44,7 +44,7 @@ export class User {
 										debug(err);
 										return res.sendStatus(500);
 									}
-									let token = jwt.sign({ id: user._id, username: user.username }, config.secret_token, { expiresIn: config.token_expiration });
+									let token = this.generateToken(user);
 									return res.json({ token: token });
 								});
 						});
@@ -72,13 +72,18 @@ export class User {
 						return res.sendStatus(401);
 					}
 
-					let token = jwt.sign({ id: user._id, username: user.username }, config.secret_token, { expiresIn: config.token_expiration });
+					let token = this.generateToken(user);
 					return res.json({ token: token });
 				});
 			}
 
 		});
 	};
+
+	generateToken(user){
+		let token = jwt.sign({ id: user._id, username: user.username, is_admin: user.is_admin }, config.secret_token, { expiresIn: config.token_expiration });
+		return token;
+	}
 
 	public register(req, res) {
 		let username = req.body.username || '';
@@ -113,12 +118,12 @@ export class User {
 							}
 
 							debug('First user created as an Admin');
-							let token = jwt.sign({ id: user._id, username: user.username }, config.secret_token, { expiresIn: config.token_expiration });
+							let token = this.generateToken(user);
 							return res.json({ token: token });
 						});
 				}
 				else {
-					let token = jwt.sign({ id: user._id, username: user.username }, config.secret_token, { expiresIn: config.token_expiration });
+					let token = this.generateToken(user);
 					return res.json({ token: token });
 				}
 			});
