@@ -29,4 +29,8 @@ export class ActivityRoute extends BaseRoute {
     new Activity().save(req, res);
   }
 
+  public update(req: Request, res: Response, next: NextFunction) {
+    new Activity().update(req, res);
+  }
+
 }

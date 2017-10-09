@@ -183,6 +183,40 @@ export class Activity {
 		});
 	}
 
+	update(req, res) {
+		let title = req.body.title || '';
+		let thumbnail_pic = req.body.thumbnail_pic || '';
+		let description = req.body.description || '';
+		let abstract = req.body.abstract || '';
+		let author = req.body.author || '';
+		let id = req.body._id || null;
+
+		if (id == '') {
+			return res.sendStatus(400);
+		}
+
+		let activity = new ActivityModel();
+		ActivityModel.findById(id, (err, act) => {
+			if (err) {
+				debug(err);
+				return res.sendStatus(500);
+			} else {
+				act.title = title;
+				act.thumbnail_pic = thumbnail_pic;
+				act.description = description;
+				act.author = author;
+				act.save(function (err, updatedTank) {
+					if (err) {
+						debug(err);
+						return res.sendStatus(500);
+					} else {
+						return res.json('ok');
+					}
+				});
+			}
+		  });
+	}
+
 	updateDetialLike(req, res) {
 		let id = req.body._id || '';
 		let user_id = req.user.id || '';

@@ -95,6 +95,11 @@ export class IndexRoute extends BaseRoute {
     router.post('/activity/save', (req: Request, res: Response, next: NextFunction) => {
       new ActivityRoute().save(req, res, next);
     });
+
+    // update activity
+    router.post('/activity/update', (req: Request, res: Response, next: NextFunction) => {
+      new ActivityRoute().update(req, res, next);
+    });
   }
 
 
