@@ -1,13 +1,14 @@
 
 import { UserModel, ActivityModel } from '../models/mongo';
 import * as mongoose from "mongoose";
-
+import { Push } from './push';
 let config = require('../../bin/config');
 let debug = require('debug')('activity');
 
 
 export class Activity {
-	constructor() { }
+	constructor() {
+	}
 
 
 	list(req, res) {
@@ -179,6 +180,9 @@ export class Activity {
 			if (err) {
 				debug(err);
 				return res.sendStatus(500);
+			}else{
+				new Push().pushActivity(activity);
+				return res.json('ok');
 			}
 		});
 	}
@@ -210,6 +214,7 @@ export class Activity {
 						debug(err);
 						return res.sendStatus(500);
 					} else {
+						new Push().pushActivity(act); 
 						return res.json('ok');
 					}
 				});
@@ -272,6 +277,10 @@ export class Activity {
 		});
 
 	};
+
+	pushActivity(activity){
+		new Push().pushActivity(activity);
+	}
 
 
 

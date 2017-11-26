@@ -5,6 +5,7 @@ import * as bodyParser from "body-parser";
 import { User } from '../controllers/user';
 import { ActivityRoute } from '../routers/activity';
 import { UserRoute } from '../routers/user';
+import { PushRoute } from '../routers/push';
 let config = require('../../bin/config');
 let debug = require('debug')('route');
 let secret_token = config.secret_token;
@@ -17,7 +18,7 @@ export class IndexRoute extends BaseRoute {
   }
 
   public static create(router: Router) {
-    router.use(jwt({ secret: secret_token }).unless({ path: ['/user/register', '/user/login', '/user/sendvcode', '', '/'] }));
+    router.use(jwt({ secret: secret_token }).unless({ path: ['/user/register', '/user/login', '/user/sendvcode', '', '/', '/test'] }));
 
     router.use((err, req, res, next) => {
       if (err) {
@@ -99,6 +100,11 @@ export class IndexRoute extends BaseRoute {
     // update activity
     router.post('/activity/update', (req: Request, res: Response, next: NextFunction) => {
       new ActivityRoute().update(req, res, next);
+    });
+
+    // push activity
+    router.get('/test', (req: Request, res: Response, next: NextFunction) => {
+      new PushRoute().push_test(req, res, next);
     });
   }
 
